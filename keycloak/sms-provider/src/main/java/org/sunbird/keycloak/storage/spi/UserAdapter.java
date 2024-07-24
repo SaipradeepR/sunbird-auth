@@ -82,6 +82,14 @@ public class UserAdapter extends AbstractUserAdapterFederatedStorage {
   public void setEnabled(boolean enabled) {
      user.setEnabled(enabled);
   }
+
+  public String getOrg() {
+    return user.getOrg();
+  }
+
+  public void setOrg(String org) {
+    user.setOrg(org);
+  }
   
   @Override
   public List<String> getAttribute(String name) {

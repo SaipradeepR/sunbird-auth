@@ -12,6 +12,16 @@ public class User {
   private boolean enabled;
   private String countryCode;
 
+  public String getOrg() {
+    return org;
+  }
+
+  public void setOrg(String org) {
+    this.org = org;
+  }
+
+  private String org;
+
   public User() {}
 
   public User(String id, String firstName, String lastName) {
