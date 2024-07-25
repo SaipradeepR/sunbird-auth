@@ -30,7 +30,7 @@ public class UserSearchService {
     Map<String, Object> request = new HashMap<>();
     request.put("key",key.toLowerCase());
     request.put("value", value);
-    request.put("fields", Arrays.asList("email","firstName","lastName","id","phone","userName","countryCode","status","rootorgid"));
+    request.put("fields", Arrays.asList("email","firstName","lastName","id","phone","userName","countryCode","status","rootorgid","roles"));
     userRequest.put("request", request);
     String userLookupUrl = System.getenv("sunbird_user_service_base_url")+"/private/user/v1/lookup";
     Map<String, Object> resMap =
@@ -69,6 +69,12 @@ public class UserSearchService {
     user.setUsername((String) userMap.get("userName"));
     user.setCountryCode((String) userMap.get("countryCode"));
     user.setOrg((String) userMap.get("rootOrgId"));
+    if ( null != userMap.get("roles") && ((List)userMap.get("roles")).size() > 0) {
+      user.setRoles((List<String>) userMap.get("roles"));
+    }
+    else{
+      user.setRoles(new ArrayList());
+    }
     if ( null != userMap.get("status") && ((Integer)userMap.get("status")) == 0) {
       user.setEnabled(false);
     } else {

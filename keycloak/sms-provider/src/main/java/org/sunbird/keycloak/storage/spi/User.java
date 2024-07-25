@@ -1,5 +1,7 @@
 package org.sunbird.keycloak.storage.spi;
 
+import java.util.List;
+
 public class User {
 
   private String id;
@@ -11,6 +13,13 @@ public class User {
   private String password;
   private boolean enabled;
   private String countryCode;
+  private List<String> roles;
+  public List<String>  getRoles() {
+    return roles;
+  }
+  public void setRoles(List<String>  roles) {
+    this.roles = roles;
+  }
   public String getOrg() {
     return org;
   }
