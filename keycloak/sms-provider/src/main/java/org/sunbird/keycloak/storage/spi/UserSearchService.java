@@ -73,7 +73,9 @@ public class UserSearchService {
       user.setRoles((List<String>) userMap.get("roles"));
     }
     else{
-      user.setRoles(new ArrayList());
+      List roles = new ArrayList();
+      roles.add("");
+      user.setRoles(roles);
     }
     if ( null != userMap.get("status") && ((Integer)userMap.get("status")) == 0) {
       user.setEnabled(false);
