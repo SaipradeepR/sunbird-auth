@@ -22,6 +22,10 @@ public class UserAdapter extends AbstractUserAdapterFederatedStorage {
     super(session, realm, storageProviderModel);
     this.user = user;
     this.keycloakId = StorageId.keycloakId(storageProviderModel, user.getId());
+    List<String> rootOrgValue = new ArrayList<>();
+    rootOrgValue.add(user.getOrg());
+    setAttribute("org", rootOrgValue);
+    setAttribute("roles", user.getRoles());
     logger.info("UserAdapter:StorageId.keycloakId method called to get keycloakId completed");
   }
 
