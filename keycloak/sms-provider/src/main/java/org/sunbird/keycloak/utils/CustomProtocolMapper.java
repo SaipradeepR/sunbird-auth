@@ -72,6 +72,6 @@ public class CustomProtocolMapper extends AbstractOIDCProtocolMapper implements 
     }
 
     static {
-        OIDCAttributeMapperHelper.addIncludeInTokensConfig(configProperties, org.keycloak.protocol.oidc.mappers.FullNameMapper.class);
+        OIDCAttributeMapperHelper.addIncludeInTokensConfig(configProperties, org.sunbird.keycloak.utils.CustomProtocolMapper.class);
     }
 }
