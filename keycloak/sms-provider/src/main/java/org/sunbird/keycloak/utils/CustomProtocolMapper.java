@@ -1,57 +1,77 @@
 package org.sunbird.keycloak.utils;
 
-import org.keycloak.models.ClientSessionContext;
-import org.keycloak.models.KeycloakSession;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import org.keycloak.models.ProtocolMapperModel;
+import org.keycloak.models.UserModel;
 import org.keycloak.models.UserSessionModel;
 import org.keycloak.protocol.oidc.mappers.*;
 import org.keycloak.provider.ProviderConfigProperty;
 import org.keycloak.representations.IDToken;
 
-import java.util.ArrayList;
-import java.util.List;
+public class CustomProtocolMapper extends AbstractOIDCProtocolMapper implements OIDCAccessTokenMapper, OIDCIDTokenMapper, UserInfoTokenMapper {
+    private static final List<ProviderConfigProperty> configProperties = new ArrayList();
+    public static final String PROVIDER_ID = "customer-sai-mapper";
 
-public class CustomProtocolMapper extends AbstractOIDCProtocolMapper implements OIDCAccessTokenMapper,
-        OIDCIDTokenMapper, UserInfoTokenMapper {
-
-    public static final String PROVIDER_ID = "custom-protocol-mapper";
-
-    private static final List<ProviderConfigProperty> configProperties = new ArrayList<>();
-
-    static {
-        OIDCAttributeMapperHelper.addTokenClaimNameConfig(configProperties);
-        OIDCAttributeMapperHelper.addIncludeInTokensConfig(configProperties, CustomProtocolMapper.class);
+    public CustomProtocolMapper() {
     }
 
-    @Override
-    public String getDisplayCategory() {
-        return "Token Mapper";
-    }
-
-    @Override
-    public String getDisplayType() {
-        return "Custom Token Mapper";
-    }
-
-    @Override
-    public String getHelpText() {
-        return "Adds a Baeldung text to the claim";
-    }
-
-    @Override
     public List<ProviderConfigProperty> getConfigProperties() {
         return configProperties;
     }
 
-    @Override
     public String getId() {
-        return PROVIDER_ID;
+        return "customer-sai-mapper";
     }
 
-    @Override
-    protected void setClaim(IDToken token, ProtocolMapperModel mappingModel,
-                            UserSessionModel userSession, KeycloakSession keycloakSession,
-                            ClientSessionContext clientSessionCtx) {
-        OIDCAttributeMapperHelper.mapClaim(token, mappingModel, "Baeldung");
+    public String getDisplayType() {
+        return "customer-sai-mapper";
+    }
+
+    public String getDisplayCategory() {
+        return "customer-sai-mapper";
+    }
+
+    public String getHelpText() {
+        return "customer-sai-mapper";
+    }
+
+    protected void setClaim(IDToken token, ProtocolMapperModel mappingModel, UserSessionModel userSession) {
+        token.getOtherClaims().put("sai", "sai");
+    }
+
+    public static ProtocolMapperModel create(String name, boolean accessToken, boolean idToken, boolean userInfo) {
+        ProtocolMapperModel mapper = new ProtocolMapperModel();
+        mapper.setName(name);
+        mapper.setProtocolMapper("customer-sai-mapper");
+        mapper.setProtocol("openid-connect");
+        Map<String, String> config = new HashMap();
+        if (accessToken) {
+            config.put("access.token.claim", "true");
+        }
+
+        if (idToken) {
+            config.put("id.token.claim", "true");
+        }
+
+        if (userInfo) {
+            config.put("userinfo.token.claim", "true");
+        }
+
+        mapper.setConfig(config);
+        return mapper;
+    }
+
+    static {
+        OIDCAttributeMapperHelper.addIncludeInTokensConfig(configProperties, org.keycloak.protocol.oidc.mappers.FullNameMapper.class);
     }
 }
