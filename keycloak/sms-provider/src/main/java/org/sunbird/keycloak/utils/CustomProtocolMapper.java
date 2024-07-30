@@ -47,8 +47,12 @@ public class CustomProtocolMapper extends AbstractOIDCProtocolMapper implements 
 
     protected void setClaim(IDToken token, ProtocolMapperModel mappingModel, UserSessionModel userSession) {
         UserModel user = userSession.getUser();
-        token.getOtherClaims().put("org", user.getAttributes().get("org"));
-        token.getOtherClaims().put("roles", user.getAttributes());
+        List<String> orgList = user.getAttributes().get("org");
+        String org = "";
+        if(orgList != null && orgList.size() >0 )
+            org = orgList.get(0);
+        token.getOtherClaims().put("org", org);
+        token.getOtherClaims().put("roles", user.getAttributes().get("roles"));
     }
 
     public static ProtocolMapperModel create(String name, boolean accessToken, boolean idToken, boolean userInfo) {
