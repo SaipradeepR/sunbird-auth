@@ -20,7 +20,7 @@ import org.keycloak.representations.IDToken;
 
 public class CustomProtocolMapper extends AbstractOIDCProtocolMapper implements OIDCAccessTokenMapper, OIDCIDTokenMapper, UserInfoTokenMapper {
     private static final List<ProviderConfigProperty> configProperties = new ArrayList();
-    public static final String PROVIDER_ID = "customer-sai-mapper";
+    public static final String PROVIDER_ID = "customer-igot-mapper";
 
     public CustomProtocolMapper() {
     }
@@ -30,19 +30,19 @@ public class CustomProtocolMapper extends AbstractOIDCProtocolMapper implements 
     }
 
     public String getId() {
-        return "customer-sai-mapper";
+        return "customer-igot-mapper";
     }
 
     public String getDisplayType() {
-        return "customer-sai-mapper";
+        return "customer-igot-mapper";
     }
 
     public String getDisplayCategory() {
-        return "customer-sai-mapper";
+        return "customer-igot-mapper";
     }
 
     public String getHelpText() {
-        return "customer-sai-mapper";
+        return "customer-igot-mapper";
     }
 
     protected void setClaim(IDToken token, ProtocolMapperModel mappingModel, UserSessionModel userSession) {
@@ -52,13 +52,13 @@ public class CustomProtocolMapper extends AbstractOIDCProtocolMapper implements 
         if(orgList != null && orgList.size() >0 )
             org = orgList.get(0);
         token.getOtherClaims().put("org", org);
-        token.getOtherClaims().put("roles", user.getAttributes().get("roles"));
+        token.getOtherClaims().put("user_roles", user.getAttributes().get("roles"));
     }
 
     public static ProtocolMapperModel create(String name, boolean accessToken, boolean idToken, boolean userInfo) {
         ProtocolMapperModel mapper = new ProtocolMapperModel();
         mapper.setName(name);
-        mapper.setProtocolMapper("customer-sai-mapper");
+        mapper.setProtocolMapper("customer-igot-mapper");
         mapper.setProtocol("openid-connect");
         Map<String, String> config = new HashMap();
         if (accessToken) {
